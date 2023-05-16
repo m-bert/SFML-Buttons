@@ -9,8 +9,8 @@ cp -r ./sources ./installation
 make -s cmp
 cp ./libsfml-better-components.a ./installation
 
-cp ./install.sh ./installation
-cp ./remove.sh ./installation
+cp ./scripts/install.sh ./installation
+cp ./scripts/remove.sh ./installation
 
 tar cvzf ./sfml-better-components.tar.gz ./installation/*
 rm -rf ./installation
