@@ -27,20 +27,20 @@ sf::Button::Button()
     enabled = false;
 }
 
-sf::Button::Button(sf::Vector2f initial_size, sf::Vector2f initial_position, std::string initial_text)
+sf::Button::Button(sf::Vector2f initialSize, sf::Vector2f initialPosition, std::string initialText)
 {
     if (!font.loadFromFile(FONT_PATH))
     {
         throw std::runtime_error("Cannot load font");
     }
 
-    size = initial_size;
-    position = initial_position;
+    size = initialSize;
+    position = initialPosition;
     color = sf::Color(33, 33, 33);
     fontSize = sf::Button::Default_Font_Size;
 
     text.setFont(font);
-    text.setString(initial_text);
+    text.setString(initialText);
     text.setCharacterSize(fontSize);
 
     fixTextPosition();
@@ -64,10 +64,10 @@ void sf::Button::setOnClickListener(std::function<void()> callback)
     this->callback = callback;
 }
 
-void sf::Button::tryActivate(sf::Vector2i mouse_position)
+void sf::Button::tryActivate(sf::Vector2i mousePosition)
 {
-    bool x_in_bounds = mouse_position.x >= position.x && mouse_position.x <= position.x + size.x;
-    bool y_in_bounds = mouse_position.y >= position.y && mouse_position.y <= position.y + size.y;
+    bool x_in_bounds = mousePosition.x >= position.x && mousePosition.x <= position.x + size.x;
+    bool y_in_bounds = mousePosition.y >= position.y && mousePosition.y <= position.y + size.y;
 
     if (enabled && x_in_bounds && y_in_bounds)
     {

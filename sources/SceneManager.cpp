@@ -1,13 +1,13 @@
 #include "SceneManager.h"
 
-void sf::SceneManager::setScene(sf::Scene *new_scene)
+void sf::SceneManager::setScene(sf::Scene *newScene)
 {
     if (scene != nullptr)
     {
         scene->enableButtons(false);
     }
 
-    scene = new_scene;
+    scene = newScene;
     scene->enableButtons(true);
 }
 
