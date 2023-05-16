@@ -22,7 +22,7 @@ namespace sf
 
         /**
          * Method that ets current scene that should be drawn on the window.
-         * @param scene The scene that should be drawn on the window
+         * @param scene pointer to the scene that should be drawn on the window
          */
         void setScene(sf::Scene *newScene);
 
