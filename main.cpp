@@ -45,7 +45,7 @@ int main()
                 window.close();
             }
 
-            if (sf::Button::isMouseButtonPressed(event, sf::Mouse::Right))
+            if (sf::Button::isMouseButtonPressed(event, sf::Mouse::Left))
             {
                 button.tryActivate(sf::Mouse::getPosition(window));
                 button2.tryActivate(sf::Mouse::getPosition(window));
