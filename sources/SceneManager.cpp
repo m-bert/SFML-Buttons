@@ -11,10 +11,10 @@ void sf::SceneManager::setScene(sf::Scene *newScene)
     scene->enableButtons(true);
 }
 
-void sf::SceneManager::draw(sf::RenderWindow &window)
+void sf::SceneManager::draw()
 {
     for (auto element : scene->getElements())
     {
-        window.draw(*element);
+        (*window).draw(*element);
     }
 }

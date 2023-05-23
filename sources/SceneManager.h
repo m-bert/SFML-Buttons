@@ -12,13 +12,17 @@ namespace sf
     class SceneManager
     {
     private:
+        sf::RenderWindow *window;
         sf::Scene *scene = nullptr;
 
     public:
         /**
          * Default constructor that creates new scene manager
          */
-        SceneManager() {}
+        SceneManager(sf::RenderWindow *window)
+        {
+            this->window = window;
+        }
 
         /**
          * Method that ets current scene that should be drawn on the window.
@@ -28,9 +32,8 @@ namespace sf
 
         /**
          * Method that draws current scene on the window
-         * @param window reference to sf::RenderWindow
          */
-        void draw(sf::RenderWindow &window);
+        void draw();
     };
 };
 

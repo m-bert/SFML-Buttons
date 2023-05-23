@@ -4,6 +4,7 @@
 #define FONT_PATH "/usr/local/share/fonts/sfml-button-font.ttf"
 
 #include <SFML/Graphics.hpp>
+#include <unordered_set>
 
 namespace sf
 {
@@ -13,6 +14,8 @@ namespace sf
     class Button : public sf::Drawable
     {
     private:
+        sf::RenderWindow *window;
+
         sf::RectangleShape shape;
         sf::Vector2f position;
         sf::Vector2f size;
@@ -24,8 +27,10 @@ namespace sf
         sf::Vector2f textPosition;
 
         bool enabled;
+        std::unordered_set<sf::Mouse::Button> activeButtons;
 
-        std::function<void()> callback;
+        std::function<void()>
+            callback = NULL;
 
         /**
          * Method that changes position of text to center it inside the button
@@ -36,16 +41,18 @@ namespace sf
         /**
          * Default constructor. Returns a button with size 120x40 positioned at (0,0).
          * Fill color is set to rgb(33,33,33), default font size is set to 24 anddefault text is set to "Click me!".
+         * @param _window pointer to the window object
          */
-        Button();
+        Button(sf::RenderWindow *_window);
 
         /**
          * Constructor with parameters. Font size is set to 24 and fill color is set to rgb(33,33,33).
+         * @param _window pointer to the window object
          * @param initialSize initial size of button
          * @param initialPosition initial position of button
          * @param initialText initial text of button
          */
-        Button(sf::Vector2f initialSize, sf::Vector2f initialPosition, std::string initialText);
+        Button(sf::RenderWindow *_window, sf::Vector2f initialSize, sf::Vector2f initialPosition, std::string initialText);
 
         /**
          * Overriden method from sf::Drawable. It allows button to be drawn on screen
@@ -60,9 +67,20 @@ namespace sf
 
         /**
          * Method that checks if button should activate. If enabled flag is set to true and user clicked on button, this function will execute callback.
-         * @param mousePosition Mouse position relative to window (obtained by sf::Mouse::getPosition(window))
          */
-        void tryActivate(sf::Vector2i mousePosition);
+        void tryActivate();
+
+        /**
+         * Method that allows to add mouse button that button component should respond to
+         * @param mouseButton mouse button that should activate component
+         */
+        void addActiveButton(sf::Mouse::Button mouseButton);
+
+        /**
+         * Method that allows to remove mouse button that button component should respond to
+         * @param mouseButton mouse button  to remove that activates component
+         */
+        void removeActiveButton(sf::Mouse::Button mouseButton);
 
         /**
          * Method that returns button's text

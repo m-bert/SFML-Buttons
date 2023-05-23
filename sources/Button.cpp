@@ -1,12 +1,14 @@
 #include "Button.h"
 #include <iostream>
 
-sf::Button::Button()
+sf::Button::Button(sf::RenderWindow *_window)
 {
     if (!font.loadFromFile(FONT_PATH))
     {
         throw std::runtime_error("Cannot load font");
     }
+
+    window = _window;
 
     size = sf::Vector2f(120, 40);
     position = sf::Vector2f(0, 0);
@@ -24,15 +26,18 @@ sf::Button::Button()
     shape.setFillColor(color);
     shape.setPosition(position);
 
+    activeButtons.insert(sf::Mouse::Button::Left);
     enabled = false;
 }
 
-sf::Button::Button(sf::Vector2f initialSize, sf::Vector2f initialPosition, std::string initialText)
+sf::Button::Button(sf::RenderWindow *_window, sf::Vector2f initialSize, sf::Vector2f initialPosition, std::string initialText)
 {
     if (!font.loadFromFile(FONT_PATH))
     {
         throw std::runtime_error("Cannot load font");
     }
+
+    window = _window;
 
     size = initialSize;
     position = initialPosition;
@@ -50,6 +55,7 @@ sf::Button::Button(sf::Vector2f initialSize, sf::Vector2f initialPosition, std::
     shape.setFillColor(color);
     shape.setPosition(position);
 
+    activeButtons.insert(sf::Mouse::Button::Left);
     enabled = false;
 }
 
@@ -64,8 +70,25 @@ void sf::Button::setOnClickListener(std::function<void()> callback)
     this->callback = callback;
 }
 
-void sf::Button::tryActivate(sf::Vector2i mousePosition)
+void sf::Button::tryActivate()
 {
+    bool shouldActivate = false;
+
+    for (sf::Mouse::Button button : activeButtons)
+    {
+        if (sf::Mouse::isButtonPressed(button))
+        {
+            shouldActivate = true;
+        }
+    }
+
+    if (!shouldActivate || callback == NULL)
+    {
+        return;
+    }
+
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
+
     bool x_in_bounds = mousePosition.x >= position.x && mousePosition.x <= position.x + size.x;
     bool y_in_bounds = mousePosition.y >= position.y && mousePosition.y <= position.y + size.y;
 
@@ -98,4 +121,14 @@ void sf::Button::fixTextPosition()
     textPosition = sf::Vector2f(position.x + offset_x, position.y + offset_y);
 
     text.setPosition(textPosition);
+}
+
+void sf::Button::addActiveButton(sf::Mouse::Button button)
+{
+    activeButtons.insert(button);
+}
+
+void sf::Button::removeActiveButton(sf::Mouse::Button button)
+{
+    activeButtons.erase(button);
 }
