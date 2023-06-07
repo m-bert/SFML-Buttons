@@ -1,9 +1,9 @@
 all:
-	@g++ -c main.cpp
+	@g++ -c example.cpp
 	@make -s cmp
-	@g++ main.o Scene.o Button.o SceneManager.o -lsfml-graphics -lsfml-window -lsfml-system -o sfml-app
+	@g++ example.o Scene.o Button.o SceneManager.o -lsfml-graphics -lsfml-window -lsfml-system -o sfml-better-components-example
 	@make -s clean
-	@./sfml-app
+	@./sfml-better-components-example
 
 
 cmp:
@@ -13,12 +13,6 @@ cmp:
 
 
 	@ar rcs libsfml-better-components.a Scene.o SceneManager.o Button.o
-
-
-example:
-	@g++ -c example.cpp
-	@g++ example.o -lsfml-graphics -lsfml-window -lsfml-system -lsfml-better-components -o sfml-example
-	@./sfml-example
 
 clean:
 	@rm -rf ./*.a ./*.o

@@ -70,7 +70,7 @@ void sf::Button::setOnClickListener(std::function<void()> callback)
     this->callback = callback;
 }
 
-void sf::Button::tryActivate()
+bool sf::Button::tryActivate()
 {
     bool shouldActivate = false;
 
@@ -84,7 +84,7 @@ void sf::Button::tryActivate()
 
     if (!shouldActivate || callback == NULL)
     {
-        return;
+        return false;
     }
 
     sf::Vector2i mousePosition = sf::Mouse::getPosition(*window);
@@ -95,7 +95,10 @@ void sf::Button::tryActivate()
     if (enabled && x_in_bounds && y_in_bounds)
     {
         callback();
+        return true;
     }
+
+    return false;
 }
 
 void sf::Button::setPosition(sf::Vector2f position)

@@ -68,7 +68,7 @@ namespace sf
         /**
          * Method that checks if button should activate. If enabled flag is set to true and user clicked on button, this function will execute callback.
          */
-        void tryActivate();
+        bool tryActivate();
 
         /**
          * Method that allows to add mouse button that button component should respond to
