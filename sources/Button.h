@@ -40,7 +40,7 @@ namespace sf
     public:
         /**
          * Default constructor. Returns a button with size 120x40 positioned at (0,0).
-         * Fill color is set to rgb(33,33,33), default font size is set to 24 anddefault text is set to "Click me!".
+         * Fill color is set to rgb(33,33,33), default font size is set to 24 and default text is set to "Click me!".
          * @param _window pointer to the window object
          */
         Button(sf::RenderWindow *_window);
@@ -78,18 +78,18 @@ namespace sf
 
         /**
          * Method that allows to remove mouse button that button component should respond to
-         * @param mouseButton mouse button  to remove that activates component
+         * @param mouseButton mouse button to remove that activates component
          */
         void removeActiveButton(sf::Mouse::Button mouseButton);
 
         /**
-         * Method that returns button's text
+         * Method that returns buttons text
          * @return text (sf::Text)
          */
         sf::Text &getText() { return text; }
 
         /**
-         * Method that returns button's shape
+         * Method that returns buttons shape
          * @return shape (sf::RectangleShape)
          */
         sf::RectangleShape &getShape() { return shape; }
